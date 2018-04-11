@@ -1,0 +1,30 @@
+.myclass {
+    background-color: red;
+}
+
+.myclass {
+    color:#fff;
+}
+
+.unused-class {
+    color: #000;
+}
+
+@media all and (min-width: 200px) {
+    .unused-class {
+        color: #000;
+    }
+}
+
+.class-from-file {
+    text-decoration: underline;
+}
+
+@media all and (min-width: 400px) {
+    .myclass {
+        background-color: #fff;
+    }
+    .myclass {
+        color:#000;
+    }
+}
