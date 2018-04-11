@@ -73,8 +73,12 @@ module.exports = (cssFiles, options, callback) => {
             let rules = atQueries[mediaquery];
             rules.forEach((element) => {
                 css = css.replace(element.original, '');
-                element.innerCss = cleanCss(element.innerCss, atKeysExp.test(mediaquery));
-                if (element.innerCss.trim() !== '') {
+
+                if(atKeysExp.test(mediaquery) === false) {
+                    element.innerCss = cleanCss(element.innerCss);
+                }
+
+                if (atKeysExp.test(mediaquery) || element.innerCss.trim() !== '') {
                     output += mediaquery + '{' + element.innerCss + '}';
                 }
             });
@@ -98,28 +102,26 @@ module.exports = (cssFiles, options, callback) => {
                     return o.toString().trim() !== ''
                 });
 
-                if (isAtRule === false) {
-                    let selectors = selector.split(',');
+                let selectors = selector.split(',');
 
-                    selectors = selectors.map((o) => {
-                        return o.toString().trim();
-                    });
+                selectors = selectors.map((o) => {
+                    return o.toString().trim();
+                });
 
-                    let newSel = [];
+                let newSel = [];
 
-                    for (let i in selectors) {
-                        let sel = selectors[i];
+                for (let i in selectors) {
+                    let sel = selectors[i];
 
-                        if (selectorExists(sel) !== false) {
-                            newSel.push(sel);
-                        }
+                    if (selectorExists(sel) !== false) {
+                        newSel.push(sel);
                     }
+                }
 
-                    if (newSel.length === 0) {
-                        continue;
-                    } else {
-                        selector = newSel.join(',');
-                    }
+                if (newSel.length === 0) {
+                    continue;
+                } else {
+                    selector = newSel.join(',');
                 }
 
                 if (!rules[selector]) {
