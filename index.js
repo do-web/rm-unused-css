@@ -128,7 +128,7 @@ module.exports = (cssFiles, options, callback) => {
                     rules[selector] = [];
                 }
 
-                rules[selector] = properties.concat(rules[selector]);
+                rules[selector] = rules[selector].concat(properties);
                 rules[selector] = arrUnique(rules[selector]);
             }
 
