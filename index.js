@@ -70,28 +70,26 @@ module.exports = (cssFiles, options, callback) => {
 
         for (let i in chars) {
 
-            if (slashFound === false && chars[i] === '/') {
-                slashFound = true;
-                continue;
-            }
-            if (slashFound === true && chars[i] === '*') {
-                commentFound = true;
-                continue;
-            }
-
-            if (endStarFound === false && chars[i] === '*') {
-                endStarFound = true;
-                continue;
+            if(commentFound === false) {
+                if (slashFound === false && chars[i] === '/') {
+                    slashFound = true;
+                    continue;
+                } else if (slashFound === true && chars[i] === '*') {
+                    commentFound = true;
+                    continue;
+                }
+                cleaned += chars[i];
             } else {
-                endStarFound = false;
+                if (endStarFound === true && chars[i] === '/') {
+                    slashFound = false;
+                    endStarFound = false;
+                    commentFound = false;
+                } else if (endStarFound === false && chars[i] === '*') {
+                    endStarFound = true;
+                } else {
+                    endStarFound = false;
+                }
             }
-
-            if (endStarFound && chars[i] === '/') {
-                commentFound = false;
-                continue;
-            }
-
-            cleaned += chars[i];
         }
         return cleaned;
     }
