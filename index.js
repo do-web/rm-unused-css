@@ -62,32 +62,24 @@ module.exports = (cssFiles, options, callback) => {
     }
 
     function removeComments(css) {
-        let slashFound = false;
-        let endStarFound = false;
         let commentFound = false;
         let chars = css.split('');
         let cleaned = '';
 
-        for (let i in chars) {
+        for (let i = 0; i < chars.length; i++) {
 
             if(commentFound === false) {
-                if (slashFound === false && chars[i] === '/') {
-                    slashFound = true;
-                    continue;
-                } else if (slashFound === true && chars[i] === '*') {
+                if (chars[i] === '/' && chars[i+1] === '*') {
                     commentFound = true;
-                    continue;
-                }
-                cleaned += chars[i];
-            } else {
-                if (endStarFound === true && chars[i] === '/') {
-                    slashFound = false;
-                    endStarFound = false;
-                    commentFound = false;
-                } else if (endStarFound === false && chars[i] === '*') {
-                    endStarFound = true;
+                    i++;
                 } else {
-                    endStarFound = false;
+                    cleaned += chars[i];
+                }
+
+            } else {
+                if (chars[i] === '*' && chars[i+1] === '/') {
+                    commentFound = false;
+                    i++;
                 }
             }
         }
@@ -150,6 +142,7 @@ module.exports = (cssFiles, options, callback) => {
                     }
 
                 } else {
+
                     if (typeof styles[selector] === 'undefined') {
                         styles[selector] = '';
                     }
