@@ -16,17 +16,21 @@ Check out the example folder!
 
 ```js
 const rmUnusedCss = require('rm-unused-css');
-
-rmUnusedCss('css/style.css', { path: './**/+(*.html|*.htm|*.js)', override: true }, function(file, content) {
-    console.log(file, content)
+const cssSource = 'css/style.css';
+rmUnusedCss(cssSource, { path: './**/+(*.html|*.htm|*.js)', override: true }).then((result) => {
+    console.log(result.file, result.newContent)
 });
 ```
+
+> Source: [cssSource]
+
+Could be a single file path, array or a string with CSS content.
 
 ###Options
 
 ```js
 {
-    // Glob path to the js and html files
+    // Glob path to the js and html files. Set to null or false if you don't want to remove unused selectors
     path: '**/+(*.html|*.htm|*.js)',
     // Override the input file
     override: false,
