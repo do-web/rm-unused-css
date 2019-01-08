@@ -2,7 +2,7 @@
 
 [![License][npm-license]][license-url]
 
-Remove unused css and duplicate css rules.
+Remove unused css and duplicated css rules.
 
 ## Installing
 
