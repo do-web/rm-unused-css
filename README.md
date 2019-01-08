@@ -24,7 +24,7 @@ rmUnusedCss(cssSource, { path: './**/+(*.html|*.htm|*.js)', override: true }).th
 
 Could be a single file path, array or a string with CSS content.
 
-###Options
+### Options
 
 ```js
 {
