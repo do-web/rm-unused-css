@@ -219,6 +219,7 @@ module.exports = (cssFilesOrContent, options) => {
                 rules[selector] = rules[selector].concat(properties);
                 rules[selector] = uniqueProps(rules[selector]);
             }
+
             return rules;
         }
 
@@ -264,10 +265,12 @@ module.exports = (cssFilesOrContent, options) => {
          * @returns {*}
          */
         function uniqueProps(data) {
-            let uniqueProps = {};
+            let uniqueProps = {}, selctorData, prop, val;
             for (let i in data) {
-                let s = data[i].split(':');
-                uniqueProps[s[0]] = s[1];
+                selctorData = data[i];
+                prop = selctorData.substr(0, selctorData.indexOf(':')).trim();
+                val = selctorData.substr(selctorData.indexOf(':') + 1).trim();
+                uniqueProps[prop] = val;
             }
             data = [];
             for (let i in uniqueProps) {
