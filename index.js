@@ -285,11 +285,15 @@ module.exports = (cssFilesOrContent, options) => {
          * @returns {boolean}
          */
         function selectorExists(selector) {
-            selector = selector.replace(/((:{1,2}(after|before|active|visited|focus|first-letter|first-line|selection|checked|disabled|empty|enabled|first-of-type|hover|in-range|invalid|last-child|last-of-type|link|only-of-type|only-child|optional|out-of-range|read-only|read-write|required|root|target|valid))|\*)/ig, '');
-            selector = selector.replace(/:{1,2}((not|lang|nth-child|nth-last-child|nth-last-of-type|nth-of-type|)\([^\)]+\))/ig, '');
+            // remove css escapes
+            selector = selector.replace(/\\/g, '');
+            // remove pseudo
+            selector = selector.replace(/((:{1,2}(after|before|active|visited|focus|first-letter|first-line|selection|checked|disabled|empty|enabled|first-of-type|hover|in-range|invalid|last-child|last-of-type|link|only-of-type|only-child|optional|out-of-range|read-only|read-write|required|root|target|valid))|\*)$/g, '');
+            selector = selector.replace(/:{1,2}((not|lang|nth-child|nth-last-child|nth-last-of-type|nth-of-type|)\([^\)]+\))$/g, '');
 
             if ((options.path || options.content) && selector.length) {
-                let regex = /(?=\S*[-*]?)([a-zA-Z-*]+)/ig;
+                // detect class names
+                let regex = /(?=\S*[-*]?)([a-zA-Z-*_/\\0-9:]+)/g;
                 let m = null;
 
                 while ((m = regex.exec(selector)) !== null) {
@@ -297,11 +301,14 @@ module.exports = (cssFilesOrContent, options) => {
                         regex.lastIndex++;
                     }
 
-                    if (m[0] === '*') {
+                    let val = m[0];
+
+                    if (val === '*') {
                         return true;
                     }
 
-                    let wordExp = new RegExp(m[0], 'ig');
+                    let wordExp = new RegExp(val, 'g');
+
                     if (wordExp.test(allfilesContent)) {
                         return true;
                     }
