@@ -137,7 +137,7 @@ module.exports = (cssFilesOrContent, options) => {
 
                     if (selector.indexOf('@') >= 0 && selector.indexOf('@-moz-document') >= 0) {
                         // skip moz because it is not supported anymore
-                    } else if (selector.indexOf('@') >= 0 && selector.indexOf('@font-face') < 0) {
+                    } else if (selector.indexOf('@') >= 0 && selector.indexOf('@font-face') < 0 && selector.indexOf('@page') < 0) {
 
                         let atContent = tokenizer(selectorContent);
 
@@ -145,11 +145,14 @@ module.exports = (cssFilesOrContent, options) => {
                             styles[selector] = atContent;
                         } else {
                             for (let i in atContent) {
-
-                                if (typeof styles[selector][i] !== 'undefined') {
-                                    styles[selector][i] += atContent[i] + (atContent[i].slice(-1) === ';' ? '' : ';');
+                                if(typeof atContent[i] === 'string') {
+                                    if (typeof styles[selector][i] !== 'undefined') {
+                                        styles[selector][i] += atContent[i] + (atContent[i].slice(-1) === ';' ? '' : ';');
+                                    } else {
+                                        styles[selector][i] = atContent[i] + (atContent[i].slice(-1) === ';' ? '' : ';');
+                                    }
                                 } else {
-                                    styles[selector][i] = atContent[i] + (atContent[i].slice(-1) === ';' ? '' : ';');
+                                    console.error('Selector not supported: ' + i);
                                 }
                             }
                         }
@@ -288,7 +291,7 @@ module.exports = (cssFilesOrContent, options) => {
             // remove css escapes
             selector = selector.replace(/\\/g, '');
             // remove pseudo
-            selector = selector.replace(/((:{1,2}(after|before|active|visited|focus|first-letter|first-line|selection|checked|disabled|empty|enabled|first-of-type|hover|in-range|invalid|last-child|last-of-type|link|only-of-type|only-child|optional|out-of-range|read-only|read-write|required|root|target|valid))|\*)$/g, '');
+            selector = selector.replace(/((:{1,2}(root|after|before|active|visited|focus|first-letter|first-line|selection|checked|disabled|empty|enabled|first-of-type|hover|in-range|invalid|last-child|last-of-type|link|only-of-type|only-child|optional|out-of-range|read-only|read-write|required|root|target|valid))|\*)$/g, '');
             selector = selector.replace(/:{1,2}((not|lang|nth-child|nth-last-child|nth-last-of-type|nth-of-type|)\([^\)]+\))$/g, '');
 
             if ((options.path || options.content) && selector.length) {
