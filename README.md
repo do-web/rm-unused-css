@@ -71,3 +71,7 @@ Could be a single file path, array or a string with CSS content.
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create new Pull Request
+
+## Donate
+
+[![Donate with Bitcoin](https://en.cryptobadges.io/badge/big/1AvuyxxtGufTwpyRCKw74FQXVtPirEnwP6)](https://en.cryptobadges.io/donate/1AvuyxxtGufTwpyRCKw74FQXVtPirEnwP6)
