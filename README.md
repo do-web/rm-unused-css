@@ -1,6 +1,17 @@
+<p align="center">
+  <img src="https://img.shields.io/github/issues/do-web/rm-unused-css.svg" alt="Build Status">
+    <img src="https://img.shields.io/github/license/do-web/rm-unused-css.svg" alt="Build Status">
+    <img src="https://img.shields.io/npm/dw/rm-unused-css.svg" alt="Downloads in week">
+    <img src="https://img.shields.io/npm/v/rm-unused-css.svg" alt="">
+</p>
+
+
 # Remove unused CSS | rm-unused-css
 
-Remove unused css and duplicated css rules.
+Remove unused css and duplicated css rules from your website. This tool removes duplicated rules and searches in html and js for unused css. Please keep in mind that not all unused css can be found, because of js injections! In my test 80-90% of unused css can be removed.
+This supports all kind off css frameworks, bootstrap, tailwindcss, foundation and more....
+
+Check out the [webpack plugin](https://github.com/do-web/css-cleanup-webpack-plugin) for usage with webpack.
 
 ## Installing
 
