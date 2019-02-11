@@ -13,6 +13,7 @@ module.exports = (cssFilesOrContent, options) => {
             path: '**/+(*.html|*.htm|*.js)',
             content: null,
             override: false,
+            whitelistPatterns: [],
             exclude: [],
             globOptions: {
                 ignore: 'node_modules/**/*'
@@ -301,12 +302,18 @@ module.exports = (cssFilesOrContent, options) => {
             // remove css escapes
             selector = selector.replace(/\\/g, '');
             // remove pseudo
-            selector = selector.replace(/((:{1,2}(after|before|active|visited|focus|first-letter|first-line|selection|checked|disabled|empty|enabled|first-of-type|hover|in-range|invalid|last-child|last-of-type|link|only-of-type|only-child|optional|out-of-range|read-only|read-write|required|root|target|valid))|\*)$/g, '');
-            selector = selector.replace(/:{1,2}((not|lang|nth-child|nth-last-child|nth-last-of-type|nth-of-type|)\([^\)]+\))$/g, '');
+            selector = selector.replace(/(:{1,2}([^\s]+))/g, '');
 
-            if ((options.path || options.content) && selector.length) {
+            if ((!!options.path || !!options.content) && selector.length) {
+
+                for(let i in options.whitelistPatterns) {
+                    if(options.whitelistPatterns[i].test(selector)) {
+                        return true;
+                    }
+                }
+
                 // detect class names
-                let regex = /(?=\S*[-*]?)([a-zA-Z-*_/\\0-9:]+)/g;
+                let regex = /(?=\S*[-*]?)([a-zA-Z-*_\/\\0-9:]+)/g;
                 let m = null;
 
                 while ((m = regex.exec(selector)) !== null) {

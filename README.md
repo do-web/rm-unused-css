@@ -34,6 +34,8 @@ Could be a single file path, array or a string with CSS content.
     override: false,
     // exclude files
     exclude: [],
+    // RegExp css class patterns. Example: /myclass_.*/
+    whitelistPatterns: [],
     // glob package options
     globOptions: {
         ignore: 'node_modules/**/*'
