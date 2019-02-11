@@ -77,3 +77,12 @@ Could be a single file path, array or a string with CSS content.
 ## Donate
 
 [![Donate with Bitcoin](https://en.cryptobadges.io/badge/big/1AvuyxxtGufTwpyRCKw74FQXVtPirEnwP6)](https://en.cryptobadges.io/donate/1AvuyxxtGufTwpyRCKw74FQXVtPirEnwP6)
+----
+
+[license-url]: https://github.com/do-web/curl-request/blob/master/LICENSE
+
+[npm-url]: https://www.npmjs.com/package/curl-request
+[npm-license]: https://img.shields.io/npm/l/curl-request.svg?style=flat
+[npm-version]: https://badge.fury.io/js/curl-request.svg
+[npm-downloads]: https://img.shields.io/npm/dm/curl-request.svg?style=flat
+>>>>>>> release/1.1.9
