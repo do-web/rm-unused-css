@@ -299,10 +299,14 @@ module.exports = (cssFilesOrContent, options) => {
          * @returns {boolean}
          */
         function selectorExists(selector) {
-            // remove css escapes
-            selector = selector.replace(/\\/g, '');
+            // remove escape /
+            selector = selector.replace(/\\\//g, '/');
+            // remove css escape :
+            selector = selector.replace(/\\:/g, '\\');
             // remove pseudo
             selector = selector.replace(/(:{1,2}([^\s]+))/g, '');
+            // restore escapes :
+            selector = selector.replace(/\\/g, ':');
 
             if ((!!options.path || !!options.content) && selector.length) {
 

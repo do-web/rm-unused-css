@@ -1,6 +1,6 @@
 {
   "name": "rm-unused-css",
-  "version": "1.1.9",
+  "version": "1.1.10",
   "description": "Remove unused css and duplicate css rules.",
   "main": "index.js",
   "dependencies": {},
