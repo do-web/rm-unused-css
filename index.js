@@ -259,18 +259,51 @@ module.exports = (cssFilesOrContent, options) => {
                 }
             }
 
+            objSelectors = sortMediaQueries(objSelectors);
+
             for (let i in objSelectors) {
                 let rules = processStyles(objSelectors[i]);
                 let newCssInner = '';
                 Object.keys(rules).forEach(k => {
                     newCssInner += k + '{' + rules[k].join(';') + '}';
                 });
+
                 if (newCssInner.length) {
+                    console.log(i)
                     newCss += i + '{' + newCssInner + '}';
                 }
             }
 
             return newCss;
+        }
+
+        /**
+         * Sort media queries
+         */
+        function sortMediaQueries(objSelectors) {
+            const ordered = {};
+            const nonOrdered = {};
+
+            for (let i in objSelectors) {
+                if(i.indexOf('@media') >= 0) {
+                    nonOrdered[i] = objSelectors[i];
+                } else {
+                    ordered[i] = objSelectors[i];
+                }
+            }
+
+            Object.keys(nonOrdered).sort((a, b) => {
+                let aVal = parseInt(a.replace(/[^0-9]+/, ''));
+                let bVal = parseInt(b.replace(/[^0-9]+/, ''));
+                aVal = isNaN(aVal) ? 0 : aVal;
+                bVal = isNaN(bVal) ? 0 : bVal;
+
+                return aVal - bVal;
+            }).forEach((key) => {
+                ordered[key] = nonOrdered[key];
+            });
+
+            return ordered;
         }
 
         /**
