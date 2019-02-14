@@ -269,7 +269,6 @@ module.exports = (cssFilesOrContent, options) => {
                 });
 
                 if (newCssInner.length) {
-                    console.log(i)
                     newCss += i + '{' + newCssInner + '}';
                 }
             }
