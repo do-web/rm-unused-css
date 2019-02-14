@@ -57,8 +57,8 @@ Could be a single file path, array or a string with CSS content.
 ### Build Plugin
 
 <div align="center">
-	  <a href="https://github.com/FullHuman/purgecss-webpack-plugin">
-    	<img width="200" heigth="200" src="https://webpack.js.org/assets/icon-square-big.svg">
+	  <a href="https://github.com/do-web/css-cleanup-webpack-plugin">
+    	<img width="200" heigth="200" src="https://raw.githubusercontent.com/webpack/media/master/logo/icon-square-big.png">
     </a>
 </div>
 
