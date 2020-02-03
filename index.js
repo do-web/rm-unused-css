@@ -311,16 +311,21 @@ module.exports = (cssFilesOrContent, options) => {
          * @returns {*}
          */
         function uniqueProps(data) {
-            let uniqueProps = {}, selctorData, prop, val;
+            let uniqueProps = {}, selectorData, prop, val, prefix, prefixMatch;
             for (let i in data) {
-                selctorData = data[i];
-                prop = selctorData.substr(0, selctorData.indexOf(':')).trim();
-                val = selctorData.substr(selctorData.indexOf(':') + 1).trim();
-                uniqueProps[prop] = val;
+                selectorData = data[i];
+                prop = selectorData.substr(0, selectorData.indexOf(':')).trim();
+                val = selectorData.substr(selectorData.indexOf(':') + 1).trim();
+                prefix = '';
+                prefixMatch = val.match(/^\-(moz|o|webkit|ms|khtml)\-/, 'i');
+                if (prefixMatch && prefixMatch.length > 1) {
+                    prefix = prefixMatch[1];
+                }
+                uniqueProps[prop + '--' + prefix] = {val, prop, prefix};
             }
             data = [];
             for (let i in uniqueProps) {
-                data.push(i + ':' + uniqueProps[i]);
+                data.push(uniqueProps[i].prop + ':' + uniqueProps[i].val);
             }
             return data;
         }
