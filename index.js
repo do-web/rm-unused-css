@@ -356,7 +356,7 @@ module.exports = (cssFilesOrContent, options) => {
 
                 for(let i in options.blacklistPatterns) {
                     if(options.blacklistPatterns[i].test(selector)) {
-                        return true;
+                        return false;
                     }
                 }
 
