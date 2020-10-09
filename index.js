@@ -14,6 +14,7 @@ module.exports = (cssFilesOrContent, options) => {
             content: null,
             override: false,
             whitelistPatterns: [],
+            blacklistPatterns: [],
             exclude: [],
             globOptions: {
                 ignore: 'node_modules/**/*'
@@ -349,6 +350,12 @@ module.exports = (cssFilesOrContent, options) => {
 
                 for(let i in options.whitelistPatterns) {
                     if(options.whitelistPatterns[i].test(selector)) {
+                        return true;
+                    }
+                }
+
+                for(let i in options.blacklistPatterns) {
+                    if(options.blacklistPatterns[i].test(selector)) {
                         return true;
                     }
                 }
